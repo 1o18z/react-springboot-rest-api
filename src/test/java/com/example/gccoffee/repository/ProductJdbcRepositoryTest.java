@@ -79,7 +79,7 @@ class ProductJdbcRepositoryTest {
   }
 
   @Test
-  @Order(6)
+  @Order(5)
   @DisplayName("상품을 수정할 수 있다.")
   void testUpdate() {
     newProduct.setProductName("updated-product");
