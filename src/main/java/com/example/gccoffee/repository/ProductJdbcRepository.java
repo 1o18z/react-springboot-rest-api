@@ -24,13 +24,14 @@ public class ProductJdbcRepository implements ProductRepository {
 
   @Override
   public List<Product> findAll() {
-    return jdbcTemplate.query("select * from products", productRowMapper);
+    return jdbcTemplate.query("SELECT * FROM products", productRowMapper);
   }
 
   @Override
   public Product insert(Product product) {
     var update = jdbcTemplate.update(
-            "insert into products(product_id, product_name, category, price, description, created_at, updated_at) values(UUID_TO_BIN(:productId), :productName, :category, :price, :description, :createdAt, :updatedAt)",
+            "INSERT INTO products(product_id, product_name, category, price, description, created_at, updated_at) " +
+                    "VALUES(UUID_TO_BIN(:productId), :productName, :category, :price, :description, :createdAt, :updatedAt)",
             toParamMap(product));
     if (update != 1) {
       throw new RuntimeException("Noting was inserted");
@@ -41,7 +42,14 @@ public class ProductJdbcRepository implements ProductRepository {
 
   @Override
   public Product update(Product product) {
-    return null;
+    int update = jdbcTemplate.update("UPDATE products SET product_name = :productName, category = :category, price = :price, description = :decription, created_at = :createdAt, updated_at = :updated_at " +
+                    "WHERE product_id = UUID_TO_BIN(:productId)",
+            toParamMap(product)
+    );
+    if (update != 1) {
+      throw new RuntimeException("Nothing was updated");
+    }
+    return product;
   }
 
   @Override
