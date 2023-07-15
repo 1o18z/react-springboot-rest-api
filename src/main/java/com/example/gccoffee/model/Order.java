@@ -12,9 +12,9 @@ public class Order {
   private final List<OrderItem> orderItem;
   private OrderStatus orderStatus;
   private final LocalDateTime createdAt;
-  private LocalDateTime updateAt;
+  private LocalDateTime updatedAt;
 
-  public Order(UUID orderId, Email email, String address, String postcode, List<OrderItem> orderItem, OrderStatus orderStatus, LocalDateTime createdAt, LocalDateTime updateAt) {
+  public Order(UUID orderId, Email email, String address, String postcode, List<OrderItem> orderItem, OrderStatus orderStatus, LocalDateTime createdAt, LocalDateTime updatedAt) {
     this.orderId = orderId;
     this.email = email;
     this.address = address;
@@ -22,7 +22,7 @@ public class Order {
     this.orderItem = orderItem;
     this.orderStatus = orderStatus;
     this.createdAt = LocalDateTime.now();
-    this.updateAt = LocalDateTime.now();
+    this.updatedAt = LocalDateTime.now();
   }
 
   public UUID getOrderId() {
@@ -37,21 +37,11 @@ public class Order {
     return address;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
-    this.updateAt = LocalDateTime.now();
-  }
-
   public String getPostcode() {
     return postcode;
   }
 
-  public void setPostcode(String postcode) {
-    this.postcode = postcode;
-    this.updateAt = LocalDateTime.now();
-  }
-
-  public List<OrderItem> getOrderItem() {
+  public List<OrderItem> getOrderItems() {
     return orderItem;
   }
 
@@ -59,9 +49,28 @@ public class Order {
     return orderStatus;
   }
 
+
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public LocalDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
   public void setOrderStatus(OrderStatus orderStatus) {
     this.orderStatus = orderStatus;
-    this.updateAt = LocalDateTime.now();
+    this.updatedAt = LocalDateTime.now();
+  }
+
+  public void setPostcode(String postcode) {
+    this.postcode = postcode;
+    this.updatedAt = LocalDateTime.now();
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+    this.updatedAt = LocalDateTime.now();
   }
 
 }
